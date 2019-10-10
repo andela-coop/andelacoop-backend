@@ -1,14 +1,16 @@
 import express from 'express';
-import bodyParser from 'body-parser'
+import bodyParser from 'body-parser';
+import validator from 'express-validator';
 import logger from 'morgan';
 
-import routes from './routes'
+import routes from './routes';
 
 const app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 
 // import routes into application
 app.use('/api', routes);
