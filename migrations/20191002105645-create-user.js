@@ -4,19 +4,43 @@ module.exports = {
     id: {
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true,
       type: Sequelize.INTEGER,
     },
     firstName: {
       type: Sequelize.STRING,
     },
+    middleName: {
+      type: Sequelize.STRING,
+    },
     lastName: {
       type: Sequelize.STRING,
     },
+    role: {
+      type: Sequelize.STRING,
+      defaultValue: 'member',
+    },
+    membershipNo: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+    },
     password: {
+      allowNull: false,
+      type: Sequelize.STRING,
+    },
+    dateOfBirth: {
       type: Sequelize.STRING,
     },
     email: {
+      type: Sequelize.STRING,
+    },
+    sex: {
+      type: Sequelize.STRING,
+    },
+    phoneNumber: {
+      type: Sequelize.STRING,
+    },
+    residentialAddress: {
       type: Sequelize.STRING,
     },
     createdAt: {
