@@ -22,8 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
-  User.associate = () => {
+  User.associate = (models) => {
     // associations can be defined here
+    User.hasOne(models.Account);
   };
   return User;
 };

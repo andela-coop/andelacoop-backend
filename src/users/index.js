@@ -3,28 +3,40 @@ import _ from 'lodash';
 import db from '../../models';
 
 class UserController {
-  static async getAllUser(res) {
-    const user = await db.User.findAll({ attributes: ['id', 'firstName', 'email'] });
-    return res.status(200).json({
-      message: 'Data retrieved success',
-      data: {
-        user,
-      },
-    });
+  static async getAllUser(req, res) {
+    return db.User.findAll({ attributes: ['id', 'firstName', 'email'] })
+      .then((user) => res.status(200).json({
+        message: 'Data retrieved success',
+        data: {
+          user,
+        },
+      }))
+      .catch((err) => res.status(400).json({
+        message: 'Data retrieval not successfull',
+        data: {
+          err,
+        },
+      }));
   }
 
   static async createUser(req, res) {
     const payload = req.body;
 
-    const user = await db.User.create({
+    return db.User.create({
       ...payload,
-    });
-    const newPayload = _.omit(user.dataValues, ['password']);
+    })
+      .then((user) => {
+        const newPayload = _.omit(user.dataValues, ['password']);
 
-    return res.status(201).json({
-      message: 'user successfully created',
-      data: newPayload,
-    });
+        return res.status(201).json({
+          message: 'user successfully created',
+          data: newPayload,
+        });
+      })
+      .catch((err) => res.status(400).json({
+        message: 'user not successfully created',
+        data: err,
+      }));
   }
 }
 
