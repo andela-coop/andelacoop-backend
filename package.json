@@ -9,11 +9,11 @@
     "start": "node dist/index.js",
     "build": "./node_modules/.bin/babel src --out-dir dist",
     "start:dev": "nodemon --exec babel-node src/index.js",
-    "test": "yarn db:reseed && mocha --require @babel/register src/test/**/**.test.js --exit",
+    "test": "yarn db:roll:migrate && mocha --require @babel/register src/test/**/**.test.js --exit",
     "test:dev": "NODE_ENV='test' && yarn db:reseed && mocha --require @babel/register src/test/**/**.test.js --exit",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate",
     "db:migrate:undo": "./node_modules/.bin/sequelize db:migrate:undo:all",
-    "db:roll:migrate": "./node_modules/.bin/sequelize db:migrate:undo && ./node_modules/.bin/sequelize db:migrate",
+    "db:roll:migrate": "yarn run db:migrate:undo && yarn run db:migrate",
     "db:reseed": "yarn run db:roll:migrate && ./node_modules/.bin/sequelize db:seed:all"
   },
   "devDependencies": {
