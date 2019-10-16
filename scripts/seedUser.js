@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 const fs = require('fs');
 const csvParser = require('csv-parser');
-const path = require('path');
 const { Client } = require('pg');
 const moment = require('moment');
 
@@ -15,6 +14,8 @@ if (!config.url) {
   console.error('Postgres url not found. Please ensure you set one in your env.');
   process.exit(1);
 }
+
+const filePath = process.argv[2];
 
 const client = new Client({
   connectionString: config.url,
@@ -53,7 +54,7 @@ function seedData(data) {
 function readFile() {
   const arr = [];
 
-  fs.createReadStream(path.join(__dirname, '../andelacoop.csv'))
+  fs.createReadStream(filePath)
     .pipe(csvParser())
     .on('data', (row) => {
       arr.push(row);
@@ -64,10 +65,25 @@ function readFile() {
     });
 }
 
+function connect() {
+  client.connect().then(() => {
+    console.log('Reading data from csv..');
+    readFile();
+  }).catch((e) => {
+    console.log(`Unable to connect to postgres: ${e.message}`);
+  });
+}
+
+try {
+  if (fs.existsSync(filePath)) {
+    connect();
+  } else {
+    console.log('File could not be found. Please add an absolute path. e.g /Users/username/path/to/file.csv');
+    process.exit(1);
+  }
+} catch (err) {
+  console.error(err.message);
+  process.exit(1);
+}
+
 console.log('Connecting to postgress');
-client.connect().then(() => {
-  console.log('Reading data from csv..');
-  readFile();
-}).catch((e) => {
-  console.log(`Unable to connect to postgres: ${e.message}`);
-});
