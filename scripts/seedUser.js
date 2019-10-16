@@ -76,6 +76,7 @@ function connect() {
 
 try {
   if (fs.existsSync(filePath)) {
+    console.log('Connecting to postgress');
     connect();
   } else {
     console.log('File could not be found. Please add an absolute path. e.g /Users/username/path/to/file.csv');
@@ -85,5 +86,3 @@ try {
   console.error(err.message);
   process.exit(1);
 }
-
-console.log('Connecting to postgress');
