@@ -1,7 +1,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Account = sequelize.define('Account', {
-    membershipId: DataTypes.INTEGER,
+    membershipNoId: DataTypes.INTEGER,
     bankName: DataTypes.STRING,
     accountNumber: DataTypes.STRING,
   }, {});
