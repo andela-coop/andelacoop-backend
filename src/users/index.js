@@ -1,25 +1,16 @@
 import _ from 'lodash';
 
 import db from '../../models';
+import responseHelper from '../helpers/response';
 
 class UserController {
-  static async getAllUser(req, res) {
+  static getAllUser(req, res) {
     return db.User.findAll({ attributes: ['id', 'firstName', 'email'] })
-      .then((user) => res.status(200).json({
-        message: 'Data retrieved success',
-        data: {
-          user,
-        },
-      }))
-      .catch((err) => res.status(400).json({
-        message: 'Data retrieval not successfull',
-        data: {
-          err,
-        },
-      }));
+      .then((user) => responseHelper(res, 200, 'Data retrieved successfull', user))
+      .catch((err) => responseHelper(res, 400, 'Data retrieval not successful', err));
   }
 
-  static async createUser(req, res) {
+  static createUser(req, res) {
     const payload = req.body;
 
     return db.User.create({
@@ -28,15 +19,9 @@ class UserController {
       .then((user) => {
         const newPayload = _.omit(user.dataValues, ['password']);
 
-        return res.status(201).json({
-          message: 'user successfully created',
-          data: newPayload,
-        });
+        return responseHelper(res, 201, 'User successfully created', newPayload);
       })
-      .catch((err) => res.status(400).json({
-        message: 'user not successfully created',
-        data: err,
-      }));
+      .catch((err) => responseHelper(res, 400, 'User not successfully created', err));
   }
 }
 

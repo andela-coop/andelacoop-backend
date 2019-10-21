@@ -21,15 +21,15 @@ module.exports = {
     },
     membershipNo: {
       type: Sequelize.INTEGER,
-      primaryKey: true,
       allowNull: false,
+      primaryKey: true,
     },
     password: {
       allowNull: false,
       type: Sequelize.STRING,
     },
     dateOfBirth: {
-      type: Sequelize.STRING,
+      type: Sequelize.DATE,
     },
     email: {
       type: Sequelize.STRING,
@@ -52,5 +52,5 @@ module.exports = {
       type: Sequelize.DATE,
     },
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Users'),
+  down: (queryInterface) => queryInterface.dropTable('Users'),
 };

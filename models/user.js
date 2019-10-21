@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING,
     membershipNo: DataTypes.INTEGER,
     password: DataTypes.STRING,
-    dateOfBirth: DataTypes.STRING,
+    dateOfBirth: DataTypes.DATE,
     email: DataTypes.STRING,
     sex: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
@@ -20,11 +20,18 @@ module.exports = (sequelize, DataTypes) => {
         // eslint-disable-next-line no-param-reassign
         user.password = bcrypt.hashSync(plainPassword, 10);
       },
+      beforeBulkUpdate(user) {
+        const plainPassword = user.attributes.password;
+        // eslint-disable-next-line no-param-reassign
+        user.attributes.password = bcrypt.hashSync(plainPassword, 10);
+      },
     },
   });
   User.associate = (models) => {
     // associations can be defined here
-    User.hasOne(models.Account);
+    User.hasOne(models.Account, {
+      foreignKey: 'membershipNo',
+    });
   };
   return User;
 };
