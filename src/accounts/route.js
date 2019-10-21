@@ -5,6 +5,6 @@ import AccountController from '.';
 
 const router = express.Router();
 
-router.post('/account/signup', AccountValidation.createAccountValidation, AccountController.createAccount);
+router.get('/accounts', AccountValidation.createAccountValidation, AccountController.createAccount);
 
 export default router;

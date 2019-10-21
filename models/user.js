@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = (models) => {
     // associations can be defined here
     User.hasOne(models.Account, {
-      foreignKey: 'userId',
+      foreignKey: 'membershipNo',
     });
   };
   return User;

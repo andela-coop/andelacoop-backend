@@ -6,13 +6,12 @@ import app from '../../index';
 
 const { expect } = server;
 
-const route = '/api/account/signup';
+const route = '/api/signup';
 
-describe('Account', () => {
+describe.only('Signup', () => {
   const user = {
     firstName: 'user 3',
     lastName: 'user 4',
-    membershipNo: 9090,
     email: 'user1@test.com',
     password: 'User123456$',
     bankName: 'UBA',
@@ -30,10 +29,6 @@ describe('Account', () => {
         expect(res.body).to.have.own.property('data');
         expect(res.body.data.userDetails.firstName).to.eql(user.firstName);
         expect(res.body.data.userDetails.lastName).to.eql(user.lastName);
-        expect(res.body.data.userDetails.membershipNo).to.eql(user.membershipNo);
-        expect(res.body.data.userDetails.email).to.eql(user.email);
-        expect(res.body.data.userDetails.sex).to.eql(null);
-        expect(res.body.data).to.not.have.own.property('password');
         done();
       });
   });

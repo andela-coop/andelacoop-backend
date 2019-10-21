@@ -14,7 +14,13 @@
     "db:migrate": "./node_modules/.bin/sequelize db:migrate",
     "db:migrate:undo": "./node_modules/.bin/sequelize db:migrate:undo:all",
     "db:roll:migrate": "yarn run db:migrate:undo && yarn run db:migrate",
-    "db:reseed": "yarn run db:roll:migrate && ./node_modules/.bin/sequelize db:seed:all"
+    "db:reseed": "yarn run db:roll:migrate && ./node_modules/.bin/sequelize db:seed:all",
+    "env": "sync-dotenv"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run env"
+    }
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
@@ -48,7 +54,8 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.19.2",
     "sequelize-cli": "^5.5.1",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "sync-dotenv": "^2.2.1"
   },
   "jest": {
     "collectCoverage": true,

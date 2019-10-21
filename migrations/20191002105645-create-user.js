@@ -5,7 +5,6 @@ module.exports = {
       allowNull: false,
       autoIncrement: true,
       type: Sequelize.INTEGER,
-      primaryKey: true,
     },
     firstName: {
       type: Sequelize.STRING,
@@ -23,6 +22,7 @@ module.exports = {
     membershipNo: {
       type: Sequelize.INTEGER,
       allowNull: false,
+      primaryKey: true,
     },
     password: {
       allowNull: false,

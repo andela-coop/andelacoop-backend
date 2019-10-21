@@ -7,22 +7,18 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    membershipNoId: {
+    membershipNo: {
       type: Sequelize.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'membershipNo',
+      },
     },
     bankName: {
       type: Sequelize.STRING,
     },
     accountNumber: {
       type: Sequelize.STRING,
-    },
-    userId: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
-      allowNull: false,
     },
     createdAt: {
       allowNull: false,
