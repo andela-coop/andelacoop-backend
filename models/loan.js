@@ -38,7 +38,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM,
       values: ['pending', 'processing', 'approved', 'rejected'],
     },
-  }, {});
+  },
+  {
+    indexes: [{
+      unique: false,
+      fields: ['amount'],
+    }, {
+      unique: false,
+      fields: ['dateOfApplication'],
+    }],
+  });
   Loan.associate = (models) => {
     Loan.hasOne(models.User);
   };
