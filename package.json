@@ -28,7 +28,8 @@
     "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.3",
-    "sequelize-test-helpers": "^1.1.2"
+    "sequelize-test-helpers": "^1.1.2",
+    "sinon": "^7.5.0"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.6.2",
